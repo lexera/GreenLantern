@@ -26,13 +26,19 @@ $password = trim($password);
 include("db.php");
 $result = mysqli_query($db, "SELECT * FROM users WHERE login_email='$login'");
 $row = mysqli_fetch_array($result);
+
 if (empty($row)) {
     exit("Введенные логин и пароль не существуют!");
 } else {
     if (password_verify($password, $row['password'])) {
         $_SESSION['login'] = $row['login'];
         $_SESSION['id'] = $row['id'];
-        header('Location: dashboard.php');
+        $_SESSION['role'] = $row['role'];
+        if ($row['role'] == "student") {
+            header('Location: dashboard.php');
+        } else {
+            header('Location: admin.php');
+        }
     } else {
         exit("Введенные логин и пароль неверные!");
 
