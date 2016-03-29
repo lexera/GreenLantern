@@ -8,28 +8,26 @@ session_start();
     <title>Green Lantern</title>
 </head>
 <body>
-<h2>Green Lantern</h2>
-<form action="login.php" method="post">
-    <p>
-        <input placeholder="E-mail" name="login" type="text" size="30" maxlength="30">
-    </p>
-    <p>
-        <input placeholder="Пароль" name="password" type="password" size="25" maxlength="25">
-        <br>
-    </p>
-    <p>
-        <input type="submit" name="submit" value="Войти">
-        <br><br>
-        <a href = 'registration.php'>Регистрация</a>
-    </p>
-</form>
-<br>
-<?php
-if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
-    echo "Пожалуйста, зарегистрируйтесь, чтобы войти на сайт.";
-} else {
-    echo "Приветсвуем, " . $_SESSION['login'] . "<br><a href='dashboard.php'></a>";
-}
-?>
+    <div class="form">
+        <h1>Green Lantern</h1>
+        <form  action="login.php" method="post">
+            <p>
+                <br>
+                <input placeholder="E-mail" name="login" type="text" size="30" maxlength="30">
+            </p>
+            <p>
+                <input placeholder="Пароль" name="password" type="password" size="30" maxlength="30">
+                <br>
+            </p>
+            <p>
+                <input type="submit" name="submit" value="Войти">
+                <br><br>
+                <a href = 'registration.php' style="color: white";>Регистрация</a>
+            </p>
+            <br>
+            <label>Пожалуйста, зарегистрируйтесь, чтобы войти на сайт.</label>
+            <br><br>
+        </form>
+    </div>
 </body>
 </html>

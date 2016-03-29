@@ -5,19 +5,20 @@
     <title>Регистрация</title>
 </head>
 <body>
-<h3>Регистрация</h3>
-<form action="user_save.php" method="post">
+<div class="form">
+    <h2>Регистрация</h2>
+    <form  action="user_save.php" method="post">
     <p>
-        <input name="login" placeholder="E-mail" type="email" size="25" maxlength="25">
+        <input name="login" placeholder="E-mail" type="email" size="30" maxlength="30">
     </p>
     <p>
-        <input name="password" placeholder="Пароль" type="password" id="txtNewPassword" size="25" maxlength="25">
+        <input name="password" placeholder="Пароль" type="password" id="txtNewPassword" size="30" maxlength="30">
     </p>
     <p>
-        <input name="password_repeat" placeholder="Повторите пароль" type="password" id="txtConfirmPassword" size="25" maxlength="25">
+        <input name="password_repeat" placeholder="Повторите пароль" type="password" id="txtConfirmPassword" size="30" maxlength="30">
     </p>
     <p>
-        <input name="student_group" placeholder="Учебная группа" type="text" size="25" maxlength="25">
+        <input name="student_group" placeholder="Учебная группа" type="text" size="30" maxlength="30">
     </p>
     <p>
         <label>Город:</label>
@@ -32,7 +33,8 @@
     </p>
     <p>
         <input type="submit" name="submit" value="Зарегистрироваться">
-    </p>
+    </p><br>
 </form>
+</div>
 </body>
 </html>
