@@ -20,16 +20,16 @@ $page = 'questions_add';
             <label>Вопрос</label>
             <textarea id="question" name="question" rows="15" placeholder="не больше 1500 знаков" ></textarea><br>
             <label>Ответ 1</label>
-            <input type="checkbox" name="correctness">правильный<br>
+            <input type="checkbox" name="correctness1">правильный<br>
             <textarea class="answer" name="answer1" rows="4" placeholder="не больше 500 знаков" ></textarea><br>
             <label>Ответ 2</label>
-            <input type="checkbox" name="correctness">правильный<br>
+            <input type="checkbox" name="correctness2">правильный<br>
             <textarea class="answer" name="answer2" rows="4" placeholder="не больше 500 знаков" ></textarea><br>
             <label>Ответ 3</label>
-            <input type="checkbox" name="correctness">правильный<br>
+            <input type="checkbox" name="correctness3">правильный<br>
             <textarea class="answer" name="answer3" rows="4" placeholder="не больше 500 знаков" ></textarea><br>
             <label>Ответ 4</label>
-            <input type="checkbox" name="correctness">правильный<br>
+            <input type="checkbox" name="correctness4">правильный<br>
             <textarea class="answer" name="answer4" rows="4" placeholder="не больше 500 знаков" ></textarea><br>
             <input type="submit" name="submit" value="Добавить">
         </div>
