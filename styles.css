@@ -80,3 +80,11 @@ input[type=submit] {
     font-family: Tahoma;
     background: #f4f4f4;
 }
+#question_list {
+    display: block;
+    position: relative;
+    width: 700px;
+    background-color: whitesmoke;
+    resize: none;
+    maxlength: 1500;
+}

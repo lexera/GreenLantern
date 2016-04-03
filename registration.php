@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="form">
-    <h2>Регистрация</h2>
+    <br><h2>Регистрация</h2><br>
     <form  action="user_save.php" method="post">
     <p>
         <input name="login" placeholder="E-mail" type="email" size="30" maxlength="30">
@@ -30,11 +30,12 @@
             echo "<option value='" . $row['id'] . "'>" . $row['city_name'] . "</option>";
         }
         echo "</select>"; ?>
-    </p>
+    </p><br>
     <p>
         <input type="submit" name="submit" value="Зарегистрироваться">
     </p><br>
 </form>
+<a href="index.php" style="color: white;">назад</a><br><br>
 </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
+include 'toolbox.php';
 if(isset($_POST['login'])) {
     $login = $_POST['login'];
 }
@@ -31,11 +32,11 @@ if($city == '') {
     unset($city);
 }
 if($password !== $password_repeat) {
-    exit("Введенные пароли не совпадают!");
+    alert_redirect("Введенные пароли не совпадают!", "registration.php");
 }
 if (empty($password) or empty($login) or empty($password_repeat) or empty($student_group)
     or empty($city)) {
-    exit("Заполните все поля формы!");
+    alert_redirect("Заполните все поля формы!", "registration.php");
 }
 
 $login = stripslashes($login);
@@ -58,7 +59,7 @@ $result = mysqli_query($db, "SELECT id FROM users WHERE login_email = '$login'")
 $found_user = mysqli_fetch_array($result);
 
 if(!empty($found_user['id'])) {
-    exit("Такой логин уже зарегистрирован, введите другой логин");
+    alert_redirect("Такой логин уже зарегистрирован, введите другой логин!", "registration.php");
 }
 $role = "student";
 $status = "active";
@@ -75,10 +76,10 @@ if (!mysqli_query($db,"INSERT INTO users (login_email, password, city, student_g
 $new_result = mysqli_query($db, "INSERT INTO users (login_email, password, city, student_group, date_created, status, role)
                       VALUES ('$login', '$password', '$city', '$student_group', '$curdate', '$status', '$role')");
 if($new_result == 'TRUE') {
-    echo "Вы успешно зарегистрированы! <a href='index.php'>Возврат на главную страницу</a>";
+    alert_redirect("Вы успешно зарегистрированы!","index.php");
 }
 else {
-    echo "Регистрация не прошла!";
+    alert_redirect("Регистрация не прошла!", "registration.php");
 }
 
 ?>

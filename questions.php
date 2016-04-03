@@ -12,8 +12,10 @@ $page = 'questions';
     <script type="text/javascript" src="admin.js"></script>
 </head>
 <body>
-    <?php
-    require 'leftmenu.php';
-    ?>
+    <?php require 'leftmenu.php'; ?>
+    <div class="mainblock">
+        <?php require 'list_quesitons.php'; ?>
+    </div>
+
 </body>
 

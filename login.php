@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'toolbox.php';
 if (isset($_POST['login'])) {
     $login = $_POST['login'];
 }
@@ -14,7 +15,7 @@ if ($password == '') {
 }
 
 if (empty($login) or empty($password)) {
-    exit ("Заполните поля логин и пароль!");
+    alert_redirect("Заполните поля логин и пароль!", "index.php");
 }
 $login = stripslashes($login);
 $login = htmlspecialchars($login);
@@ -28,7 +29,7 @@ $result = mysqli_query($db, "SELECT * FROM users WHERE login_email='$login'");
 $row = mysqli_fetch_array($result);
 
 if (empty($row)) {
-    exit("Введенные логин и пароль не существуют!");
+    alert_redirect("Введенные логин и пароль не существуют!", "index.php");
 } else {
     if (password_verify($password, $row['password'])) {
         $_SESSION['login'] = $row['login'];
@@ -40,8 +41,7 @@ if (empty($row)) {
             header('Location: admin.php');
         }
     } else {
-        exit("Введенные логин и пароль неверные!");
-
+        alert_redirect("Введенные логин и пароль неверные!", "index.php");
     }
 }
 ?>

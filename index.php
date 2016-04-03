@@ -8,8 +8,8 @@ session_start();
     <title>Green Lantern</title>
 </head>
 <body>
-    <div class="form">
-        <h1>Green Lantern</h1>
+    <div class="form"><br>
+        <h1>Green Lantern</h1><br>
         <form  action="login.php" method="post">
             <p>
                 <br>
@@ -18,10 +18,10 @@ session_start();
             <p>
                 <input placeholder="Пароль" name="password" type="password" size="30" maxlength="30">
                 <br>
-            </p>
+            </p><br>
             <p>
                 <input type="submit" name="submit" value="Войти">
-                <br><br>
+                <br><br><br>
                 <a href = 'registration.php' style="color: white";>Регистрация</a>
             </p>
             <br>
