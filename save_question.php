@@ -34,27 +34,12 @@ if($answer4 === '') {
 if (empty($question) || empty($answer3) || empty($answer1) || empty($answer2) || empty($answer4)) {
     exit("Заполните все поля формы!");
 }
-if(isset($_POST['correctness1'])) {
-    $answer1_correct = 1;
-} else  {
-    $answer1_correct = 0;
-}
 
-if(isset($_POST['correctness2'])) {
-    $answer2_correct = 1;
-} else  {
-    $answer2_correct = 0;
-}
-if(isset($_POST['correctness3'])) {
-    $answer3_correct = 1;
-} else  {
-    $answer3_correct = 0;
-}
-if(isset($_POST['correctness4'])) {
-    $answer4_correct = 1;
-} else  {
-    $answer4_correct = 0;
-}
+$answer1_correct = (isset($_POST['correctness1'])) ? 1 : 0;
+$answer2_correct = (isset($_POST['correctness2'])) ? 1 : 0;
+$answer3_correct = (isset($_POST['correctness3'])) ? 1 : 0;
+$answer4_correct = (isset($_POST['correctness4'])) ? 1 : 0;
+
 include("db.php");
 date_default_timezone_set('Europe/Kiev');
 $curdate = date('Y/m/d', time());
@@ -76,8 +61,6 @@ $answer_add_result1 = mysqli_query($db, "INSERT INTO answers (answer, date_creat
                       ('$answer3', '$curdate', '$q_id', '$answer3_correct', '$status' ),
                       ('$answer4', '$curdate', '$q_id', '$answer4_correct', '$status' )
                       " );
-
-
 alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
 
 ?>
