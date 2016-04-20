@@ -51,6 +51,33 @@ if (!mysqli_query($db, "INSERT INTO questions (question, date_created, status)
 }
 */
 
+$question_add_result = $mysqli->prepare("INSERT INTO questions (question, date_created, status)
+                      VALUES (?,?,?)");
+$question_add_result->bind_param("sss", $question, $curdate, $status);
+
+if($question_add_result->execute()) {
+    alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
+} else {
+    alert_redirect("Вопрос не был добавлен!", "questions_add.php");
+}
+$q_id = mysqli_insert_id($db);
+$answers_to_insert = array("$answer1", "$curdate", "$q_id", "$answer1_correct", "$status");/*,
+    $answer2, $curdate, $q_id, $answer2_correct, $status,
+    $answer3, $curdate, $q_id, $answer3_correct, $status,
+    $answer4, $curdate, $q_id, $answer4_correct, $status);*/
+
+#FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+$query = "INSERT INTO answers (answer, date_created, question_id, correct, status) VALUES (?,?,?,?,?)";
+$answer_add_result1 = $mysqli->prepare($query);
+$answer_add_result1->bind_param("s", $one);
+$mysqli->query("START TRANSACTION");
+foreach($answers_to_insert as $one) {
+    $answer_add_result1->execute();
+}
+$answer_add_result1->close();
+$mysqli->query("COMMIT");
+/*
 $question_add_result = mysqli_query($db, "INSERT INTO questions (question, date_created, status)
                       VALUES ('$question', '$curdate', '$status')");
 $q_id = mysqli_insert_id($db);
@@ -62,6 +89,6 @@ $answer_add_result1 = mysqli_query($db, "INSERT INTO answers (answer, date_creat
                       ('$answer4', '$curdate', '$q_id', '$answer4_correct', '$status' )
                       " );
 alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
-
+*/
 ?>
 
