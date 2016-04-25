@@ -44,54 +44,36 @@ include("db.php");
 date_default_timezone_set('Europe/Kiev');
 $curdate = date('Y/m/d', time());
 $status = "active";
-/*
-if (!mysqli_query($db, "INSERT INTO questions (question, date_created, status)
-                      VALUES ('$question', '$curdate', '$status')")) {
-    echo("Error description: " . mysqli_error($db));
-}
-*/
 
-$question_add_result = $mysqli->prepare("INSERT INTO questions (question, date_created, status)
-                      VALUES (?,?,?)");
+$error = false;
+$query1 = "INSERT INTO questions (question, date_created, status)VALUES (?,?,?)";
+$question_add_result = $mysqli->prepare($query1);
 $question_add_result->bind_param("sss", $question, $curdate, $status);
-$question_add_result->execute();
+$question_add_result->execute() ? $error = false : $error = true;
+$question_add_result->close();
 
-//
-//if($question_add_result->execute()) {
-//    alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
-//} else {
-//    alert_redirect("Вопрос не был добавлен!", "questions_add.php");
-//}
-$q_id = mysqli_insert_id($db);
-$answers_to_insert = array(
-    "answer" => array("$answer1", "$answer2", "$answer3", "$answer4"),
-    "correctness" => array("$answer1_correct", "$answer2_correct", "$answer3_correct", "$answer4_correct")
-);
-//
-//$query = "INSERT INTO answers (answer, date_created, question_id, correct, status) VALUES (?,?,?,?,?)";
-//$answer_add_result = $mysqli->prepare($query);
 
-foreach($answers_to_insert as $one) {
+$q_id = $mysqli->insert_id;
+$answers = array($answer1, $answer2, $answer3, $answer4);
+$correctness = array($answer1_correct, $answer2_correct, $answer3_correct, $answer4_correct);
 
-    $answer = $one['answer'];
-    $correct = $one['correctness'];
-//    $answer_add_result->bind_param("sssss", $answer, $curdate, $q_id, $correct, $status );
-//    $answer_add_result->execute();
+$query2 = "INSERT INTO answers (answer, date_created, question_id, correct, status) VALUES (?,?,?,?,?)";
+$answer_add_result = $mysqli->prepare($query2);
+$ansinsert = "";
+$corinsert = "";
+$answer_add_result->bind_param("ssiss", $ansinsert, $curdate, $q_id, $corinsert, $status );
+
+for($i = 0; $i < 4; $i++) {
+    $ansinsert = $answers[$i];
+    $corinsert = $correctness[$i];
+    $answer_add_result->execute();
 }
-//$answer_add_result->close();
 
-/*
-$question_add_result = mysqli_query($db, "INSERT INTO questions (question, date_created, status)
-                      VALUES ('$question', '$curdate', '$status')");
-$q_id = mysqli_insert_id($db);
-
-$answer_add_result1 = mysqli_query($db, "INSERT INTO answers (answer, date_created, question_id, correct, status)
-                      VALUES ('$answer1', '$curdate', '$q_id', '$answer1_correct', '$status' ),
-                      ('$answer2', '$curdate', '$q_id', '$answer2_correct', '$status' ),
-                      ('$answer3', '$curdate', '$q_id', '$answer3_correct', '$status' ),
-                      ('$answer4', '$curdate', '$q_id', '$answer4_correct', '$status' )
-                      " );
-alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
-*/
+$answer_add_result->close();
+if($error) {
+    alert_redirect("Вопрос не был добавлен!", "questions_add.php");
+} else {
+    alert_redirect("Вопрос успешно добавлен!", "questions_add.php");
+}
 ?>
 

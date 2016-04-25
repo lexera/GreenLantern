@@ -3,6 +3,7 @@ session_start();
 if(!(isset($_SESSION['role']) && $_SESSION['role'] == 'admin')){
     header("Location: index.php");}
 $page = 'questions_add';
+$access = 'admin';
 ?>
 <html>
 <head>
