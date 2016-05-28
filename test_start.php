@@ -23,7 +23,6 @@ $access = 'user';
             <?php
             require 'load_question.php';
             ?>
-
             <input type="submit" name="submit" value="Ответить">
         </div>
     </form>
