@@ -25,8 +25,15 @@ $password = htmlspecialchars($password);
 $password = trim($password);
 
 include("db.php");
-$result = mysqli_query($db, "SELECT * FROM users WHERE login_email='$login'");
-$row = mysqli_fetch_array($result);
+
+$query = "SELECT * FROM users WHERE login_email = ?";
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param("s", $login);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$stmt->close();
+
 
 if (empty($row)) {
     alert_redirect("Введенные логин и пароль не существуют!", "index.php");
@@ -41,7 +48,7 @@ if (empty($row)) {
             header('Location: admin.php');
         }
     } else {
-        alert_redirect("Введенные логин и пароль неверные!", "index.php");
+        alert_redirect("Введенные логин и пароль неверные!" , "index.php"); //
     }
 }
 ?>

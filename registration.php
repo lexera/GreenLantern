@@ -23,13 +23,10 @@
     <p>
         <label>Город:</label>
         <?php
-        include ('cities_select.php');
         echo "<select name='city'>";
-        while ($row = mysqli_fetch_array($result)) {
-            #echo "<option value='" . $row['PcID'] . "'>" . $row['PcID'] . "</option>";
-            echo "<option value='" . $row['id'] . "'>" . $row['city_name'] . "</option>";
-        }
-        echo "</select>"; ?>
+        include ('cities_select.php');
+        echo "</select>";
+        ?>
     </p><br>
     <p>
         <input type="submit" name="submit" value="Зарегистрироваться">
