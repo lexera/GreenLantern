@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HP Envy
- * Date: 29-May-16
- * Time: 12:14 PM
- */
+
+$city = $_REQUEST["city"];
+$group = $_REQUEST["group"];
+$datefrom = $_REQUEST["datefrom"];
+$dateto = $_REQUEST["dateto"]; 
+
+echo $city;
+?>
