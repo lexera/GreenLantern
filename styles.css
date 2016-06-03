@@ -88,3 +88,11 @@ input[type=submit] {
     resize: none;
     maxlength: 1500;
 }
+table, th, td {
+    width: 70%;
+    border: 1px solid black;
+}
+th {
+    color: white;
+    background-color: darkgray;
+}

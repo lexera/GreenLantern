@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 include 'toolbox.php';
+include("db.php");
+
 if(isset($_POST['question'])) { $question = $_POST['question']; }
 if($question === '') { unset($question); }
 if(isset($_POST['answer1'])) { $answer1 = $_POST['answer1']; }
@@ -21,7 +23,6 @@ $answer2_correct = (isset($_POST['correctness2'])) ? 1 : 0;
 $answer3_correct = (isset($_POST['correctness3'])) ? 1 : 0;
 $answer4_correct = (isset($_POST['correctness4'])) ? 1 : 0;
 
-include("db.php");
 date_default_timezone_set('Europe/Kiev');
 $curdate = date('Y/m/d', time());
 $status = "active";

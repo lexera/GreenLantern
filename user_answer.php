@@ -19,44 +19,47 @@ $error = false;
 $query1 = "INSERT INTO user_answers (user_id, question_id, answer_id, date_created) VALUES (?,?,?,?)";
 $answer_add_result = $mysqli->prepare($query1);
 $answer_id = "";
-$empty_flag = 0;
 $answer_add_result->bind_param("ssss", $user_id, $q_id, $answer_id, $curdate);
 
 $correctness = array($answer1_correct, $answer2_correct, $answer3_correct, $answer4_correct);
 
-$score = 0;
-$correct = 0;
-$query2 = "INSERT INTO user_scores (user_id, question_id, correctness, date_created) VALUES (?,?,?,?)";
-$score_add = $mysqli->prepare($query2);
-$score_add->bind_param("ssss", $user_id, $q_id, $correct, $curdate);
-
-//добавляем каждый положительный ответ в таблицу ответов
-for($i = 0; $i < 4; $i++) {
-    if ($correctness[$i] > 0) {
-        $answer_id = $_SESSION['answer_id'][$i];
-        $answer_add_result->execute() ? $error = false : $error = true;
-        $empty_flag++;
-    };
-    if ($correctness[$i] == $_SESSION['correct'][$i]) {
-        $score++;
-    }
-}
-if($empty_flag === 0) {
+if(array_sum($correctness)===0) {
     alert_redirect("Выберете хотя бы один правильный вариант ответа!", "test_start.php");
 }
-$answer_add_result->close();
+else {
+    $score = 0;
+    $correct = 0;
+    $query2 = "INSERT INTO user_scores (user_id, question_id, correctness, date_created) VALUES (?,?,?,?)";
+    $score_add = $mysqli->prepare($query2);
+    $score_add->bind_param("ssss", $user_id, $q_id, $correct, $curdate);
+
+//добавляем каждый положительный ответ в таблицу ответов
+    for ($i = 0; $i < 4; $i++) {
+        if ($correctness[$i] > 0) {
+            $answer_id = $_SESSION['answer_id'][$i];
+            $answer_add_result->execute() ? $error = false : $error = true;
+        };
+        if ($correctness[$i] == $_SESSION['correct'][$i]) {
+            $score++;
+        }
+    }
+
+    $answer_add_result->close();
 
 //Добавляем результат ответа в агрегированную таблицу
-if ($score === 4) {
-    $correct = 1;
-} else { $correct = 0; }
-$score_add->execute() ? $error = false : $error = true;
-$score_add->close();
+    if ($score === 4) {
+        $correct = 1;
+    } else {
+        $correct = 0;
+    }
+    $score_add->execute() ? $error = false : $error = true;
+    $score_add->close();
 
-if($error) {
-    alert_redirect("Ответ не был добавлен!", "test_start.php");
-} else {
-    header('Location: test_start.php');
+    if ($error) {
+        alert_redirect("Ответ не был добавлен!", "test_start.php");
+    } else {
+        header('Location: test_start.php');
+    }
 }
 
 ?>
