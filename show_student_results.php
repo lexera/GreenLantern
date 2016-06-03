@@ -30,7 +30,7 @@ $query1 = "SELECT first_name, last_name,  login_email, cor_answers,
                  GROUP BY user_id, date_created) as t
             JOIN users ON t.user_id = users.id
             JOIN cities ON cities.id = users.city
-            WHERE t.date_created > ? AND t.date_created < ?";
+            WHERE t.date_created >= ? AND t.date_created <= ?";
 $show_results = $mysqli->prepare($query1);
 if($city === "all" && $group === "all") {
     $show_results = $mysqli->prepare($query1);
